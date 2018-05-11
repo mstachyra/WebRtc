@@ -32,6 +32,9 @@
     "webpack-hot-middleware": "2.18.2"
   },
   "peerDependencies": {
-    "popper.js" : "^1.14.3"
+    "popper.js": "^1.14.3"
+  },
+  "dependencies": {
+    "@aspnet/signalr": "^1.0.0-rc1-update1"
   }
 }
