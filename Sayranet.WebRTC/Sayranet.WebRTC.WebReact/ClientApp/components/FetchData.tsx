@@ -8,8 +8,8 @@ interface FetchDataExampleState {
 }
 
 export class FetchData extends React.Component<RouteComponentProps<{}>, FetchDataExampleState> {
-    constructor(props: any) {
-        super(props);
+    constructor() {
+        super();
         this.state = { forecasts: [], loading: true };
 
         fetch('api/SampleData/WeatherForecasts')
