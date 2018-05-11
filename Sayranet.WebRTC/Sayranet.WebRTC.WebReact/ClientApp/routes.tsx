@@ -4,9 +4,11 @@ import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import { FetchData } from './components/FetchData';
 import { Counter } from './components/Counter';
+import { Chat } from './components/Chat';
 
 export const routes = <Layout>
     <Route exact path='/' component={ Home } />
     <Route path='/counter' component={ Counter } />
     <Route path='/fetchdata' component={ FetchData } />
+    <Route path='/webrtc' component={Chat} />
 </Layout>;
