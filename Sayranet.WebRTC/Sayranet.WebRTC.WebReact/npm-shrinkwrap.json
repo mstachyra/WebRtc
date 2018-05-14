@@ -14,6 +14,16 @@
       "integrity": "sha1-CT1n7XgNiJyVQ/bcok6+4La5/EU=",
       "dev": true
     },
+    "@types/jquery": {
+      "version": "3.3.1",
+      "resolved": "https://registry.npmjs.org/@types/jquery/-/jquery-3.3.1.tgz",
+      "integrity": "sha512-N3h+rzN518yl2xKrW0o6KKdNmWZ+OwG6SoM5TBEQFF0tTv5wXPEsoOuYQ2Kt3/89XbcSZUJLdjiT/2c3BR/ApQ=="
+    },
+    "@types/node": {
+      "version": "10.0.8",
+      "resolved": "https://registry.npmjs.org/@types/node/-/node-10.0.8.tgz",
+      "integrity": "sha512-MFFKFv2X4iZy/NFl1m1E8uwE1CR96SGwJjgHma09PLtqOWoj3nqeJHMG+P/EuJGVLvC2I6MdQRQsr4TcRduIow=="
+    },
     "@types/react": {
       "version": "https://registry.npmjs.org/@types/react/-/react-15.0.35.tgz",
       "integrity": "sha1-RnKSPNUC0D4UgNA4FuvFpxn7hto=",
@@ -52,6 +62,22 @@
         "@types/history": "https://registry.npmjs.org/@types/history/-/history-4.6.0.tgz",
         "@types/react": "https://registry.npmjs.org/@types/react/-/react-15.0.35.tgz",
         "@types/react-router": "https://registry.npmjs.org/@types/react-router/-/react-router-4.0.12.tgz"
+      }
+    },
+    "@types/toastr": {
+      "version": "2.1.35",
+      "resolved": "https://registry.npmjs.org/@types/toastr/-/toastr-2.1.35.tgz",
+      "integrity": "sha512-NSPsNyBRxopghpNQLPqMLGK4oDIey5prT6RTkExljOfRrid0bkTr5v9NXYntBOwhEMmHjrmdsxY/g2/eKAJZpg==",
+      "requires": {
+        "@types/jquery": "3.3.1"
+      }
+    },
+    "@types/uuid": {
+      "version": "3.4.3",
+      "resolved": "https://registry.npmjs.org/@types/uuid/-/uuid-3.4.3.tgz",
+      "integrity": "sha512-5fRLCYhLtDb3hMWqQyH10qtF+Ud2JnNCXTCZ+9ktNdCcgslcuXkDTkFcJNk++MT29yDntDnlF1+jD+uVGumsbw==",
+      "requires": {
+        "@types/node": "10.0.8"
       }
     },
     "@types/webpack-env": {
@@ -1964,8 +1990,7 @@
     },
     "jquery": {
       "version": "https://registry.npmjs.org/jquery/-/jquery-3.2.1.tgz",
-      "integrity": "sha1-XE2d5lKvbNCncBVKYxu6ErAVx4c=",
-      "dev": true
+      "integrity": "sha1-XE2d5lKvbNCncBVKYxu6ErAVx4c="
     },
     "js-base64": {
       "version": "https://registry.npmjs.org/js-base64/-/js-base64-2.1.9.tgz",
@@ -3918,6 +3943,14 @@
         }
       }
     },
+    "toastr": {
+      "version": "2.1.4",
+      "resolved": "https://registry.npmjs.org/toastr/-/toastr-2.1.4.tgz",
+      "integrity": "sha1-i0O+ZPudDEFIcURvLbjoyk6V8YE=",
+      "requires": {
+        "jquery": "https://registry.npmjs.org/jquery/-/jquery-3.2.1.tgz"
+      }
+    },
     "tty-browserify": {
       "version": "https://registry.npmjs.org/tty-browserify/-/tty-browserify-0.0.0.tgz",
       "integrity": "sha1-oVe6QC2iTpv5V/mqadUk7tQpAaY=",
@@ -4110,6 +4143,11 @@
       "version": "https://registry.npmjs.org/utils-merge/-/utils-merge-1.0.0.tgz",
       "integrity": "sha1-ApT7kiu5N1FTVBxPcJYjHyh8ivg=",
       "dev": true
+    },
+    "uuid": {
+      "version": "3.2.1",
+      "resolved": "https://registry.npmjs.org/uuid/-/uuid-3.2.1.tgz",
+      "integrity": "sha512-jZnMwlb9Iku/O3smGWvZhauCf6cvvpKi4BKRiliS3cxnI+Gz9j5MEpTz2UFuXiKPJocb7gnsLHwiS05ige5BEA=="
     },
     "validate-npm-package-license": {
       "version": "https://registry.npmjs.org/validate-npm-package-license/-/validate-npm-package-license-3.0.1.tgz",

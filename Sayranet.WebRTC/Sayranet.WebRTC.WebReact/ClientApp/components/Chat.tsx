@@ -1,34 +1,49 @@
 ﻿import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { ChangeEvent } from 'react';
-import WebsocketService from '../services/ChatWebsocketService'
+import WebsocketService from '../services/ChatWebsocketService';
+import * as Toastr from 'toastr';
+import { v4 as Guid } from 'uuid';
+import { ChatMessage } from '../models/ChatMessage';
 
 interface ChatState {
-    isClicked: boolean,
-    currentMessage: string
+    nick: string,
+    currentMessage: string,
+    messages: ChatMessage[]
 }
 
 export class Chat extends React.Component<RouteComponentProps<{}>, ChatState> {
+
+    private refChatNickNameInput: HTMLInputElement;
+    
     constructor() {
         super();
         this.state = {
-            isClicked: true,
-            currentMessage: ''
+            nick: '',
+            currentMessage: '',
+            messages: []
         };
 
-        WebsocketService.registerMessageAdded((message: string) => {
-            alert(message);
-        });
+        Toastr.info('Chat loaded!');
+        console.log('Ctor Chat');
     }
 
-    handleClick = () => {
-        alert(this.state.isClicked);
+    handleStartBtnClick = () => {
+        this.setState({
+            nick: this.refChatNickNameInput.value
+        });
     }
 
     handleOnSubmit = (event: any) => {
         event.preventDefault();
-        WebsocketService.sendMessage(this.state.currentMessage);
-        //alert(this.state.currentMessage);
+
+        let msg = {
+            message: this.state.currentMessage,
+            id: Guid(),
+            nick: this.state.nick
+        };
+
+        WebsocketService.sendMessage(msg);
     }
 
     handleMessageOnChange = (input: ChangeEvent<HTMLInputElement>) => {
@@ -37,31 +52,70 @@ export class Chat extends React.Component<RouteComponentProps<{}>, ChatState> {
         })
     }
 
+    componentWillUnmount() {
+        WebsocketService.offRegisterMessageAdded((chatMessage: ChatMessage) => {
+            alert(chatMessage.message);
+        });
+        WebsocketService.stopService();
+    }
+
+    componentWillMount() {
+        WebsocketService.startService();
+        WebsocketService.onRegisterMessageAdded((chatMessage: ChatMessage) => {
+            this.state.messages.push(chatMessage);
+            this.setState(prevState => {  });
+
+            //alert(chatMessage.message);
+        });
+    }
+
     public render() {
-        return <div className="card">
+
+        return <div className="card bg-info">
             <div className="card-header">
-                Chat
+                Chat <strong>{this.state.nick}</strong>
             </div>
             <div className="card-body">
-            </div>
-            <div className="card-footer">
-                <form onSubmit={this.handleOnSubmit}>
-
-                    <div className="input-group mb-3">
-                        <input type="text"
-                            onChange={this.handleMessageOnChange}
-                            className="form-control"
-                            placeholder="Recipient's username"
-                            aria-label="Recipient's username"
-                            id="msg" />
+                
+                {this.state.nick == '' &&
+                    <div className="input-group">
+                        <input type="text" className="form-control"
+                            ref={(input) => this.refChatNickNameInput = input as HTMLInputElement}
+                            placeholder="Enter chat username" />
                         <div className="input-group-append">
-                            <button className="btn btn-outline-secondary"
-                                type="submit">Button</button>
+                            <button className="btn btn-success" onClick={this.handleStartBtnClick}
+                                type="submit">Start</button>
                         </div>
                     </div>
-
-                </form>
+                }
+                
+                {this.state.nick != '' && 
+                    <ul>
+                    {this.state.messages.map((msg) =>
+                        <li key={msg.id}><p><strong>{msg.nick}</strong> :{msg.message}</p></li>
+                    )}
+                </ul>
+                    }
             </div>
+
+            {this.state.nick != '' && 
+                <div className="card-footer">
+                    <form onSubmit={this.handleOnSubmit}>
+                        <div className="input-group">
+                            <input type="text"
+                                onChange={this.handleMessageOnChange}
+                                className="form-control"
+                                placeholder="Message"
+                                disabled={this.state.nick == ''} />
+                            <div className="input-group-append">
+                                <button className="btn btn-outline-secondary"
+                                    type="submit" disabled={this.state.nick == ''}>Send</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            }
         </div>;
     }
 }

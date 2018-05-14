@@ -35,6 +35,11 @@
     "popper.js": "^1.14.3"
   },
   "dependencies": {
-    "@aspnet/signalr": "^1.0.0-rc1-update1"
+    "@aspnet/signalr": "^1.0.0-rc1-update1",
+    "@types/node": "^10.0.8",
+    "@types/toastr": "^2.1.35",
+    "@types/uuid": "^3.4.3",
+    "toastr": "^2.1.4",
+    "uuid": "^3.2.1"
   }
 }

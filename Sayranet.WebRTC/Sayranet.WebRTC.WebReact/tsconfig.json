@@ -4,11 +4,14 @@
     "module": "es2015",
     "moduleResolution": "node",
     "target": "es5",
+    "lib": [ "es6", "dom" ],
     "jsx": "react",
     "sourceMap": true,
     "skipDefaultLibCheck": true,
     "strict": true,
-    "types": ["webpack-env"]
+    "strictNullChecks": false,
+    "types": [ "webpack-env", "node" ],
+    "typeRoots": [ "node_modules/@types" ]
   },
   "exclude": [
       "bin",
