@@ -259,3 +259,4 @@ paket-files/
 
 # CodeRush
 .cr/
+/Sayranet.WebRTC/Sayranet.WebRTC.Signaling/Properties/PublishProfiles
