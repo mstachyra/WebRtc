@@ -57,3 +57,12 @@
         text-overflow: ellipsis;
     }
 }
+
+.chat-area {
+    height: 150px;
+    overflow-y: scroll;
+}
+
+.chat-area p {
+    margin-bottom: 1px;
+}

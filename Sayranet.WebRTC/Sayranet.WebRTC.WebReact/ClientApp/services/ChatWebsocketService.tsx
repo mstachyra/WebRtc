@@ -3,7 +3,7 @@ import { ChatMessage } from '../models/ChatMessage';
 
 class ChatWebsocketService {
     private _connection: signalR.HubConnection;
-    private _url: string = `http://localhost:50780/chat`;
+    private _url: string = `http://test1.mstachyra.hostingasp.pl/chat`;
 
     constructor() {
         console.log('Ctor ChatWebsocketService');

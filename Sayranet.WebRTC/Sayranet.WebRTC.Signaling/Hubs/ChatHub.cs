@@ -15,5 +15,10 @@ namespace Sayranet.WebRTC.Signaling.Hubs
             chatMessage.CreateDate = DateTimeOffset.Now;
             Clients.All.SendAsync("send", chatMessage);
         }
+
+        public void GroupMessage(string group, string message)
+        {
+            Clients.Group(group).SendAsync("send", message);
+        }
     }
 }

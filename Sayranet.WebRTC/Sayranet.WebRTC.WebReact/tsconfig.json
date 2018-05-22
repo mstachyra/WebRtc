@@ -10,8 +10,8 @@
     "skipDefaultLibCheck": true,
     "strict": true,
     "strictNullChecks": false,
-    "types": [ "webpack-env", "node" ],
-    "typeRoots": [ "node_modules/@types" ]
+    "types": [ "webpack-env", "node" ]
+    //"typeRoots": [ "node_modules/@types" ]
   },
   "exclude": [
       "bin",

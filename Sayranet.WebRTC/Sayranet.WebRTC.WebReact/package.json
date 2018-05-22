@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "devDependencies": {
     "@types/history": "4.6.0",
-    "@types/react": "15.0.35",
+    "@types/react": "^15.0.35",
     "@types/react-dom": "15.5.1",
     "@types/react-hot-loader": "3.0.3",
     "@types/react-router": "4.0.12",
@@ -40,6 +40,7 @@
     "@types/toastr": "^2.1.35",
     "@types/uuid": "^3.4.3",
     "toastr": "^2.1.4",
-    "uuid": "^3.2.1"
+    "uuid": "^3.2.1",
+    "webrtc-adapter": "^6.1.5"
   }
 }

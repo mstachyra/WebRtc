@@ -25,8 +25,9 @@
       "integrity": "sha512-MFFKFv2X4iZy/NFl1m1E8uwE1CR96SGwJjgHma09PLtqOWoj3nqeJHMG+P/EuJGVLvC2I6MdQRQsr4TcRduIow=="
     },
     "@types/react": {
-      "version": "https://registry.npmjs.org/@types/react/-/react-15.0.35.tgz",
-      "integrity": "sha1-RnKSPNUC0D4UgNA4FuvFpxn7hto=",
+      "version": "15.0.35",
+      "resolved": "https://registry.npmjs.org/@types/react/-/react-15.0.35.tgz",
+      "integrity": "sha512-SDvfa+9dIq7RBTBiPhV0V+NeLT16RSFjcsjcyIJUBLlHpOatja1mHuOlI+P7tJ7fZZeBd8CV5pHxmFt4MdpyGQ==",
       "dev": true
     },
     "@types/react-dom": {
@@ -34,7 +35,7 @@
       "integrity": "sha1-88PhTGgnhZI8fWRYNTffMZRC3sE=",
       "dev": true,
       "requires": {
-        "@types/react": "https://registry.npmjs.org/@types/react/-/react-15.0.35.tgz"
+        "@types/react": "15.0.35"
       }
     },
     "@types/react-hot-loader": {
@@ -42,7 +43,7 @@
       "integrity": "sha1-7gKxmZwicTQY4ZjMPrCQt+ds5ZI=",
       "dev": true,
       "requires": {
-        "@types/react": "https://registry.npmjs.org/@types/react/-/react-15.0.35.tgz"
+        "@types/react": "15.0.35"
       }
     },
     "@types/react-router": {
@@ -51,7 +52,7 @@
       "dev": true,
       "requires": {
         "@types/history": "https://registry.npmjs.org/@types/history/-/history-4.6.0.tgz",
-        "@types/react": "https://registry.npmjs.org/@types/react/-/react-15.0.35.tgz"
+        "@types/react": "15.0.35"
       }
     },
     "@types/react-router-dom": {
@@ -60,7 +61,7 @@
       "dev": true,
       "requires": {
         "@types/history": "https://registry.npmjs.org/@types/history/-/history-4.6.0.tgz",
-        "@types/react": "https://registry.npmjs.org/@types/react/-/react-15.0.35.tgz",
+        "@types/react": "15.0.35",
         "@types/react-router": "https://registry.npmjs.org/@types/react-router/-/react-router-4.0.12.tgz"
       }
     },
@@ -3490,6 +3491,14 @@
         "inherits": "https://registry.npmjs.org/inherits/-/inherits-2.0.3.tgz"
       }
     },
+    "rtcpeerconnection-shim": {
+      "version": "1.2.11",
+      "resolved": "https://registry.npmjs.org/rtcpeerconnection-shim/-/rtcpeerconnection-shim-1.2.11.tgz",
+      "integrity": "sha512-Vns4aLKXTrLZCjDOlPZL1nymFiSpqs15TeF+wG1TSLO1kXRrCuT5SjL+Zb8RCP7t3JNfnCuTn+qMlCGQu5NvhQ==",
+      "requires": {
+        "sdp": "2.7.3"
+      }
+    },
     "safe-buffer": {
       "version": "https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.1.1.tgz",
       "integrity": "sha1-iTMSr2myEj3vcfV4iQAWce6yyFM=",
@@ -3520,6 +3529,11 @@
           }
         }
       }
+    },
+    "sdp": {
+      "version": "2.7.3",
+      "resolved": "https://registry.npmjs.org/sdp/-/sdp-2.7.3.tgz",
+      "integrity": "sha512-vjgxz6hnUcgS/gLTWyYOn6OwYKsIxIE9EN4GyjH/h57kttpAC2+sKBDI0aDogyWS0s64COaHF6oupPnO5zDDPg=="
     },
     "semver": {
       "version": "https://registry.npmjs.org/semver/-/semver-5.3.0.tgz",
@@ -4318,6 +4332,15 @@
           "integrity": "sha1-qqR0A/eyRakvvJfqCPJQ1gh+0IU=",
           "dev": true
         }
+      }
+    },
+    "webrtc-adapter": {
+      "version": "6.1.5",
+      "resolved": "https://registry.npmjs.org/webrtc-adapter/-/webrtc-adapter-6.1.5.tgz",
+      "integrity": "sha1-33Lkr1y2Z1ZWyJbbDRGHaVNZIgs=",
+      "requires": {
+        "rtcpeerconnection-shim": "1.2.11",
+        "sdp": "2.7.3"
       }
     },
     "whatwg-fetch": {
