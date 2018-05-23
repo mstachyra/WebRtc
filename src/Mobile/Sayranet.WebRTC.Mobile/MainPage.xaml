@@ -4,11 +4,14 @@
              xmlns:local="clr-namespace:Sayranet.WebRTC.Mobile"
              x:Class="Sayranet.WebRTC.Mobile.MainPage">
 
-    <StackLayout>
+    <StackLayout VerticalOptions="Center" Margin="5">
         <!-- Place new controls here -->
-    	<Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
+        <Label Text="Example of applications using SignalR and WebRTC (simple group chat)" 
+               FontSize="Large"
+           HorizontalOptions="Center"/>
+        <Entry Placeholder="Enter group name" x:Name="groupNameInput" />
+        <Button Text="Let's go" Clicked="Button_Clicked" />
+
     </StackLayout>
 
 </ContentPage>

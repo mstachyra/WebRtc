@@ -15,8 +15,8 @@ export class WebRtc extends React.Component<RouteComponentProps<WebRtcParams>, W
 
     private connection: signalR.HubConnection;
     
-    //private url: string = `http://test1.mstachyra.hostingasp.pl/chat`;
-    private url: string = `http://localhost:50780/chat`;
+    private url: string = `http://test1.mstachyra.hostingasp.pl/chat`;
+    //private url: string = `http://localhost:50780/chat`;
     private refChatInput: HTMLInputElement;
     private refChatAreaDiv: HTMLDivElement;
     private video: HTMLVideoElement;

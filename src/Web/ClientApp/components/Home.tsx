@@ -17,7 +17,7 @@ export class Home extends React.Component<RouteComponentProps<{}>, {}> {
         return <div className="card">
             <div className="card-body">
                 <blockquote className="blockquote mb-0">
-                    <p>Example of applications using WebRTC, simple chat</p>
+                    <p>Example of applications using SignalR and WebRTC (simple group chat)</p>
                 </blockquote>
                 <div className="input-group mb-3">
                     <input type="text"

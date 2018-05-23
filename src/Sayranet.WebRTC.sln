@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sayranet.WebRTC.Signaling", "Sayranet.WebRTC.Signaling\Sayranet.WebRTC.Signaling.csproj", "{1F295886-509F-4FBC-B531-7C9EE2B815D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sayranet.WebRTC.Signaling", "Signaling\Sayranet.WebRTC.Signaling.csproj", "{1F295886-509F-4FBC-B531-7C9EE2B815D3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sayranet.WebRTC.WebReact", "Sayranet.WebRTC.WebReact\Sayranet.WebRTC.WebReact.csproj", "{D18CE096-29F0-4079-A80B-0F1F2F076241}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sayranet.WebRTC.WebReact", "Web\Sayranet.WebRTC.WebReact.csproj", "{D18CE096-29F0-4079-A80B-0F1F2F076241}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sayranet.WebRTC.Mobile.Android", "Sayranet.WebRTC.Mobile\Sayranet.WebRTC.Mobile.Android\Sayranet.WebRTC.Mobile.Android.csproj", "{08FDEBD6-AB71-4D72-9868-EB715215C19A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sayranet.WebRTC.Mobile.Android", "Mobile\Sayranet.WebRTC.Mobile.Android\Sayranet.WebRTC.Mobile.Android.csproj", "{08FDEBD6-AB71-4D72-9868-EB715215C19A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sayranet.WebRTC.Mobile.iOS", "Sayranet.WebRTC.Mobile\Sayranet.WebRTC.Mobile.iOS\Sayranet.WebRTC.Mobile.iOS.csproj", "{7FE63E0C-A483-475F-81FC-DB5DCBA7C8FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sayranet.WebRTC.Mobile.iOS", "Mobile\Sayranet.WebRTC.Mobile.iOS\Sayranet.WebRTC.Mobile.iOS.csproj", "{7FE63E0C-A483-475F-81FC-DB5DCBA7C8FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sayranet.WebRTC.Mobile.UWP", "Sayranet.WebRTC.Mobile\Sayranet.WebRTC.Mobile.UWP\Sayranet.WebRTC.Mobile.UWP.csproj", "{5AFD6CEF-6672-4E25-97B3-2BC412299C92}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sayranet.WebRTC.Mobile.UWP", "Mobile\Sayranet.WebRTC.Mobile.UWP\Sayranet.WebRTC.Mobile.UWP.csproj", "{5AFD6CEF-6672-4E25-97B3-2BC412299C92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sayranet.WebRTC.Mobile", "Sayranet.WebRTC.Mobile\Sayranet.WebRTC.Mobile\Sayranet.WebRTC.Mobile.csproj", "{1CEBE1FA-E1CD-42D8-815E-D5B7BD3428B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sayranet.WebRTC.Mobile", "Mobile\Sayranet.WebRTC.Mobile\Sayranet.WebRTC.Mobile.csproj", "{1CEBE1FA-E1CD-42D8-815E-D5B7BD3428B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
