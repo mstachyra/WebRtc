@@ -1,6 +1,7 @@
 ﻿import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import webRtcAdapter from 'webrtc-adapter';
+import * as signalR from '@aspnet/signalr';
 
 interface WebRtcState {
     messages: string[]
@@ -12,6 +13,10 @@ interface WebRtcParams {
 
 export class WebRtc extends React.Component<RouteComponentProps<WebRtcParams>, WebRtcState> {
 
+    private connection: signalR.HubConnection;
+    
+    //private url: string = `http://test1.mstachyra.hostingasp.pl/chat`;
+    private url: string = `http://localhost:50780/chat`;
     private refChatInput: HTMLInputElement;
     private refChatAreaDiv: HTMLDivElement;
     private video: HTMLVideoElement;
@@ -25,8 +30,9 @@ export class WebRtc extends React.Component<RouteComponentProps<WebRtcParams>, W
 
     constructor() {
         super();
+        this.connection = null;
         this.state = {
-            messages: ['asdasd','wewewe']
+            messages: ['Welcome in app']
         };
 
         this.handleSuccess.bind(this);
@@ -39,19 +45,50 @@ export class WebRtc extends React.Component<RouteComponentProps<WebRtcParams>, W
         //    .catch(this.handleError);
     }
 
-    handleSend = () => {
+    componentWillMount() {
+        // create Connection
+        this.connection = new signalR.HubConnectionBuilder()
+            .configureLogging(signalR.LogLevel.Information)
+            .withUrl(this.url, signalR.HttpTransportType.WebSockets)
+            .build();
+        // start connection
+        this.connection.start()
+            .catch(err => console.error(err))
+            .then(() => {
 
+                this.connection.invoke('JoinGroup', this.props.match.params.groupName)
+                    .then(() => {
+                        console.info('Group registered');
+                    })
+                
+                this.connection.on('Message', (msg: string) => {
+                    this.setMsg('Recive: ' + msg);
+                });
+            });
+    }
+
+    componentWillUnmount() {
+        this.connection.stop();
+        this.connection = null;
+    }
+
+    setMsg = (msg: string) => {
         this.setState({
-            messages: this.state.messages.concat([this.refChatInput.value])
+            messages: this.state.messages.concat([msg])
         }, () => {
             this.refChatAreaDiv.scrollTop = this.refChatAreaDiv.scrollHeight;
         });
+    }
 
-        //this.setState(prevState => ({
-        //    messages: [...prevState.messages, this.refChatInput.value]
-        //    //this.state.messages.push(this.refChatInput.value);
-            
-        //}));
+    handleSend = () => {
+        this.setMsg('You: ' + this.refChatInput.value);
+        if (this.connection == null) {
+            console.warn('Not connected');
+            return;
+        }
+        this.connection.invoke('GroupMessage',
+            { GroupName: this.props.match.params.groupName, Message: this.refChatInput.value }
+            );
         this.refChatInput.value = '';
     }
 

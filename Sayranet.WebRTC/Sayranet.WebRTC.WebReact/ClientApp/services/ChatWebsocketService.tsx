@@ -28,6 +28,10 @@ class ChatWebsocketService {
         this._connection.invoke('SendMessage', message);
     }
 
+    sendMessageToGroup(group: string, message: string) {
+        this._connection.invoke('GroupMessage', group, message);
+    }
+
     startService() {
 
         // create Connection
@@ -36,11 +40,12 @@ class ChatWebsocketService {
             .withUrl(this._url, signalR.HttpTransportType.WebSockets)
             .build();
         // start connection
-        this._connection.start().catch(err => console.error(err, 'red'));
+        this._connection.start().catch(err => console.error(err));
     }
 
     stopService() {
         this._connection.stop();
+        this._connection = null;
     }
 }
 

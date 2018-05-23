@@ -16,9 +16,15 @@ namespace Sayranet.WebRTC.Signaling.Hubs
             Clients.All.SendAsync("send", chatMessage);
         }
 
-        public void GroupMessage(string group, string message)
+        public void JoinGroup(string groupName)
         {
-            Clients.Group(group).SendAsync("send", message);
+            Groups.AddToGroupAsync(Context.ConnectionId, groupName);
+        }
+
+        public void GroupMessage(GroupMessage msg)
+        {
+            // Send only to others
+            Clients.OthersInGroup(msg.GroupName).SendAsync("Message", msg.Message);
         }
     }
 }

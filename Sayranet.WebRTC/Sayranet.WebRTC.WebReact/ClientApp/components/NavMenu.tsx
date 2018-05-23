@@ -18,27 +18,9 @@ export class NavMenu extends React.Component<{}, {}> {
                             </NavLink>
                     </li>
                     <li className="nav-item">
-                        <NavLink to={'/Counter'} className="btn" exact activeClassName='btn-outline-info' >
-                            <i className="fas fa-coins mr-2"></i>
-                            Counter
-                            </NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <NavLink to={'/Fetchdata'} className="btn" exact activeClassName='btn-outline-info' >
-                            <i className="fas fa-list mr-2"></i>
-                            Fetch data
-                            </NavLink>
-                    </li>
-                    <li className="nav-item">
                         <NavLink to={'/Webrtc'} className="btn" exact activeClassName='btn-outline-info' >
                             <i className="fas fa-camera mr-2"></i>
                             WebRTC
-                            </NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <NavLink to={'/Chat'} className="btn" exact activeClassName='btn-outline-info' >
-                            <i className="fas fa-comments mr-2"></i>
-                            Chat
                             </NavLink>
                     </li>
                 </ul>
