@@ -2,7 +2,7 @@ using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-[assembly: XamlCompilation (XamlCompilationOptions.Compile)]
+//[assembly: XamlCompilation (XamlCompilationOptions.Compile)]
 namespace Sayranet.WebRTC.Mobile
 {
 	public partial class App : Application

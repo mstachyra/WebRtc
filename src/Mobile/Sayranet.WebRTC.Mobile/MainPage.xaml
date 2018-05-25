@@ -11,6 +11,7 @@
            HorizontalOptions="Center"/>
         <Entry Placeholder="Enter group name" x:Name="groupNameInput" />
         <Button Text="Let's go" Clicked="Button_Clicked" />
+        <local:WebRtcView HeightRequest="100" WidthRequest="100" />
 
     </StackLayout>
 
