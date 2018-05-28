@@ -14,13 +14,13 @@ using Xamarin.Forms.Xaml;
 namespace Sayranet.WebRTC.Mobile
 {
     //[XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class WebRTC : ContentPage
+    public partial class WebRTCPage : ContentPage
     {
         private readonly string _groupName;
         private readonly ObservableCollection<string> _listMessages;
         private HubConnection _hub;
 
-        public WebRTC(string groupName)
+        public WebRTCPage(string groupName)
         {
             InitializeComponent();
             _groupName = groupName;

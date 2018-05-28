@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Sayranet.WebRTC.Mobile"
-             x:Class="Sayranet.WebRTC.Mobile.WebRTC"
+             x:Class="Sayranet.WebRTC.Mobile.WebRTCPage"
              Title="Sayranet.WebRTC.Mobile.WebRTC">
     <ContentPage.Content>
         <Grid Padding="5" RowSpacing="5">
