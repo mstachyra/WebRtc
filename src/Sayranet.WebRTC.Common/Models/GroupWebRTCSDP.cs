@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sayranet.WebRTC.Signaling.Models
+namespace Sayranet.WebRTC.Common.Models
 {
-    public class GroupMessage
+    public class GroupWebRTCSdp : WebRTCSDP
     {
         public string GroupName { get; set; }
-        public string Message { get; set; }
+
+        public WebRTCSDP Sdp { get; set; }
     }
 }

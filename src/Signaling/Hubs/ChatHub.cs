@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using Sayranet.WebRTC.Signaling.Models;
+using Sayranet.WebRTC.Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +10,6 @@ namespace Sayranet.WebRTC.Signaling.Hubs
 {
     public class ChatHub : Hub
     {
-        public void SendMessage(ChatMessage chatMessage)
-        {
-            chatMessage.CreateDate = DateTimeOffset.Now;
-            Clients.All.SendAsync("send", chatMessage);
-        }
-
         public void JoinGroup(string groupName)
         {
             Groups.AddToGroupAsync(Context.ConnectionId, groupName);
@@ -25,6 +19,12 @@ namespace Sayranet.WebRTC.Signaling.Hubs
         {
             // Send only to others
             Clients.OthersInGroup(msg.GroupName).SendAsync("Message", msg.Message);
+        }
+
+        public void GroupOffer(GroupWebRTCSdp webRTCSDP)
+        {
+            // Send only to others
+            Clients.OthersInGroup(webRTCSDP.GroupName).SendAsync("Answer", webRTCSDP);
         }
     }
 }
