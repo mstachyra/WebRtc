@@ -152,6 +152,10 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Sayranet.WebRTC.Common\Sayranet.WebRTC.Common.csproj">
+      <Project>{D315789C-6C77-46E2-BE13-E91A37BBB724}</Project>
+      <Name>Sayranet.WebRTC.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sayranet.WebRTC.Mobile\Sayranet.WebRTC.Mobile.csproj">
       <Project>{CE018EB0-0387-4C05-83D8-AAF11DD16202}</Project>
       <Name>Sayranet.WebRTC.Mobile</Name>

@@ -1,4 +1,5 @@
 ﻿using Org.WebRtc;
+using Sayranet.WebRTC.Common.Models;
 using Sayranet.WebRTC.Mobile;
 using Sayranet.WebRTC.Mobile.UWP;
 using System;
@@ -28,6 +29,12 @@ namespace Sayranet.WebRTC.Mobile.UWP
         private RelativePanel _panel;
         private Media _media;
 
+        private MediaStream _localStream;
+        private MediaElement _localVideo;
+        private RTCPeerConnection _peerConnection;
+
+        private MediaElement _remoteVideo;
+
         protected override void OnElementChanged(ElementChangedEventArgs<WebRtcView> e)
         {
             base.OnElementChanged(e);
@@ -35,16 +42,28 @@ namespace Sayranet.WebRTC.Mobile.UWP
             if (Control == null)
             {
                 Debug.WriteLine("Setup WebRtcView Control null");
-
-                e.NewElement.Started += NewElement_Started;
+                
                 e.NewElement.Starting += NewElement_Starting;
+                e.NewElement.OfferRequested += NewElement_OfferRequested;
+                e.NewElement.AnswerRequested += NewElement_AnswerRequested;
+                e.NewElement.AnswerReplayed += NewElement_AnswerReplayed;
 
                 _panel = new RelativePanel();
-                _panel.Width = e.NewElement.WidthRequest;
-                _panel.Height = e.NewElement.HeightRequest;
+                //_panel.Width = e.NewElement.WidthRequest;
+                //_panel.Height = e.NewElement.HeightRequest;
                 _panel.Background = new SolidColorBrush(Colors.Aqua);
 
-                _panel.Children.Add(new MediaElement());
+                _localVideo = new MediaElement();
+                _localVideo.Width = 320;
+                _localVideo.Height = 240;
+
+                _remoteVideo = new MediaElement();
+                _remoteVideo.Width = 320;
+                _remoteVideo.Height = 240;
+                RelativePanel.SetAlignRightWithPanel(_remoteVideo, true);
+
+                _panel.Children.Add(_localVideo);
+                _panel.Children.Add(_remoteVideo);
 
                 SetNativeControl(_panel);
             }
@@ -69,12 +88,6 @@ namespace Sayranet.WebRTC.Mobile.UWP
                 else
                 {
                     Element.SendError("Failed to obtain access to multimedia devices!");
-                    //RunOnUiThread(async () =>
-                    //{
-                    //    var msgDialog = new MessageDialog(
-                    //        );
-                    //    await msgDialog.ShowAsync();
-                    //});
                 }
             });
         }
@@ -99,13 +112,119 @@ namespace Sayranet.WebRTC.Mobile.UWP
                 (int)selectedVideoCapability.Height,
                 (int)selectedVideoCapability.FrameRate);
 
+            //Setting up local stream 
+            RTCMediaStreamConstraints mediaStreamConstraints = new RTCMediaStreamConstraints
+            {
+                audioEnabled = false,
+                videoEnabled = true
+            };
+            _localStream = await _media.GetUserMedia(mediaStreamConstraints);
+            _media.SelectVideoDevice(selectedVideoDevice);
+            
+            // Get Video Tracks
+            var videotrac = _localStream.GetVideoTracks();
+            foreach (var videoTrack in videotrac) //This foreach may not be necessary 
+            {
+                videoTrack.Enabled = true;
+            }
+            var selectedVideoTrac = videotrac.FirstOrDefault();
+            
+            Debug.WriteLine("Creating RTCPeerConnection");
+            var config = new RTCConfiguration()
+            {
+                BundlePolicy = RTCBundlePolicy.Balanced,
+                IceTransportPolicy = RTCIceTransportPolicy.All,
+                IceServers = GetDefaultList()
+            };
+            _peerConnection = new RTCPeerConnection(config);
+            _peerConnection.OnIceCandidate += _localRtcPeerConnection_OnIceCandidate;
+            _peerConnection.OnIceConnectionChange += _localRtcPeerConnection_OnIceConnectionChange;
+            _peerConnection.OnAddStream += _peerConnection_OnAddStream;
+           
+            //_peerConnection.AddStream(_localStream);
+            _media.AddVideoTrackMediaElementPair(selectedVideoTrac, _localVideo, _localStream.Id);
+
             // Send event started
             Element.SendStarted();
+
+            //Debug.WriteLine("Creating 'remote' RTCPeerConnection");
+            //_remoteRtcPeerConnection = new RTCPeerConnection(config);
+            //_remoteRtcPeerConnection.OnIceCandidate += _remoteRtcPeerConnection_OnIceCandidate;
+            //_remoteRtcPeerConnection.OnIceConnectionChange += _remoteRtcPeerConnection_OnIceConnectionChange;
+            //// Wait for Stream
+            //_remoteRtcPeerConnection.OnAddStream += _remoteRtcPeerConnection_OnAddStream;
         }
 
-        private void NewElement_Started(object sender, EventArgs e)
+        private async void NewElement_OfferRequested(object sender, EventArgs e)
         {
+            var offer = await _peerConnection.CreateOffer();
+            Debug.WriteLine("OfferRequested CreateOffer, sdp\n" + offer.Sdp);
 
+            await _peerConnection.SetLocalDescription(offer);
+            Debug.WriteLine("OfferRequested SetLocalDescription complete offer");
+
+            //await _remoteRtcPeerConnection.SetRemoteDescription(offer);
+            //Debug.WriteLine("SetRemoteDescription complete offer");
+
+            Element.SendOfferRecived(offer.ToWebRTCSDP());
+        }
+
+        private async void NewElement_AnswerRequested(object sender, SdpEventArgs e)
+        {
+            await _peerConnection.SetRemoteDescription(e.Sdp.ToRTCSessionDescription());
+            Debug.WriteLine("AnswerRequested SetRemoteDescription complete");
+
+            var answerDesc = await _peerConnection.CreateAnswer();
+            Debug.WriteLine("AnswerRequested CreateAnswer complete");
+
+            await _peerConnection.SetLocalDescription(answerDesc);
+            Debug.WriteLine("AnswerRequested SetLocalDescription complete");
+
+            Element.SendAnswerRecived(answerDesc.ToWebRTCSDP());
+        }
+
+        private async void NewElement_AnswerReplayed(object sender, SdpEventArgs e)
+        {
+            await _peerConnection.SetRemoteDescription(e.Sdp.ToRTCSessionDescription());
+            Debug.WriteLine("AnswerReplayed SetRemoteDescription complete");
+        }
+
+        private void _localRtcPeerConnection_OnIceConnectionChange(RTCPeerConnectionIceStateChangeEvent __param0)
+        {
+            Debug.WriteLine($"Entered _localRtcPeerConnection_OnIceConnectionChange {__param0.State}");
+        }
+
+        private async void _localRtcPeerConnection_OnIceCandidate(RTCPeerConnectionIceEvent __param0)
+        {
+            Debug.WriteLine("Entered _localRtcPeerConnection_OnIceCandidate");
+            await _peerConnection.AddIceCandidate(__param0.Candidate);
+        }
+
+        //private void _remoteRtcPeerConnection_OnIceConnectionChange(RTCPeerConnectionIceStateChangeEvent __param0)
+        //{
+        //    Debug.WriteLine($"Entered _remoteRtcPeerConnection_OnIceConnectionChange {__param0.State}");
+        //}
+
+        //private async void _remoteRtcPeerConnection_OnIceCandidate(RTCPeerConnectionIceEvent __param0)
+        //{
+        //    Debug.WriteLine("Entered _remoteRtcPeerConnection_OnIceCandidate");
+        //    await _remoteRtcPeerConnection.AddIceCandidate(__param0.Candidate);
+        //}
+
+        //private void _remoteRtcPeerConnection_OnAddStream(MediaStreamEvent __param0)
+        //{
+        //    MediaStream remoteStream = __param0.Stream;
+        //    var tracks = remoteStream.GetVideoTracks();
+        //    _media.AddVideoTrackMediaElementPair(tracks.FirstOrDefault(), _remoteVideo, remoteStream.Id);
+        //    Debug.WriteLine("Received a remote stream");
+        //}
+
+        private void _peerConnection_OnAddStream(MediaStreamEvent __param0)
+        {
+            MediaStream remoteStream = __param0.Stream;
+            var tracks = remoteStream.GetVideoTracks();
+            _media.AddVideoTrackMediaElementPair(tracks.FirstOrDefault(), _remoteVideo, remoteStream.Id);
+            Debug.WriteLine("Received a remote stream");
         }
 
         //Stun and Turn servers borrowed from Chatterbox example
@@ -150,6 +269,28 @@ namespace Sayranet.WebRTC.Mobile.UWP
                     Credential = "rtc123"
                 }
             };
+        }
+    }
+
+
+    public static class RTCSessionDescriptionExtension
+    {
+        public static WebRTCSDP ToWebRTCSDP(this RTCSessionDescription sessionDescription)
+        {
+            return new WebRTCSDP
+            {
+                Type = sessionDescription.Type.HasValue ? (SDPType?)sessionDescription.Type.Value : null,
+                Sdp = sessionDescription.Sdp
+            };
+        }
+
+        public static RTCSessionDescription ToRTCSessionDescription(this WebRTCSDP sessionDescription)
+        {
+            if (!sessionDescription.Type.HasValue)
+            {
+                Debug.WriteLine("WebRTCSDP type is null");
+            }
+            return new RTCSessionDescription((RTCSdpType)sessionDescription.Type.GetValueOrDefault(), sessionDescription.Sdp);
         }
     }
 }

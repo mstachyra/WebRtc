@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sayranet.WebRTC.Common.Models
 {
-    public class GroupWebRTCSdp : WebRTCSDP
+    public class GroupWebRTCSdp
     {
         public string GroupName { get; set; }
 

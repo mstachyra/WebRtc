@@ -21,10 +21,22 @@ namespace Sayranet.WebRTC.Signaling.Hubs
             Clients.OthersInGroup(msg.GroupName).SendAsync("Message", msg.Message);
         }
 
-        public void GroupOffer(GroupWebRTCSdp webRTCSDP)
+        public void GroupOffer(GroupWebRTCSdp webRTCSdp)
         {
             // Send only to others
-            Clients.OthersInGroup(webRTCSDP.GroupName).SendAsync("Answer", webRTCSDP);
+            Clients.OthersInGroup(webRTCSdp.GroupName).SendAsync("Offer", webRTCSdp.Sdp);
+        }
+
+        public void GroupAnswer(GroupWebRTCSdp webRTCSdp)
+        {
+            // Send only to others
+            Clients.OthersInGroup(webRTCSdp.GroupName).SendAsync("Answer", webRTCSdp.Sdp);
+        }
+
+        public void GroupSdp(GroupWebRTCSdp webRTCSdp)
+        {
+            // Send only to others
+            Clients.OthersInGroup(webRTCSdp.GroupName).SendAsync("Sdp", webRTCSdp.Sdp);
         }
     }
 }

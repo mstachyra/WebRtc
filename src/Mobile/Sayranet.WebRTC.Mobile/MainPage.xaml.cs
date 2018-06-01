@@ -1,5 +1,4 @@
-﻿using Sayranet.WebRTC.Mobile.Abstraction;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +12,7 @@ namespace Sayranet.WebRTC.Mobile
 		public MainPage()
 		{
 			InitializeComponent();
-		}
+        }
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
@@ -25,16 +24,6 @@ namespace Sayranet.WebRTC.Mobile
             {
                 await Navigation.PushAsync(new WebRTCPage(groupNameInput.Text));
             }
-        }
-
-        private void Button_Clicked2(object sender, EventArgs e)
-        {
-            WebRtcControl.SendStarting();
-        }
-
-        private async void WebRtcControl_ErrorOccurred(object sender, ErrorEventArgs e)
-        {
-            await DisplayAlert("Error", e.Message, "Ok");
         }
     }
 }

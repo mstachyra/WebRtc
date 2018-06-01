@@ -21,9 +21,25 @@
                 <Label Text="Chat / Console" />
                 <ListView Margin="5" HeightRequest="100"  x:Name="ChatConsole">
                 </ListView>
-                <Entry x:Name="ChatInput" HorizontalOptions="FillAndExpand" Completed="Entry_Completed" />
+                <Entry x:Name="ChatInput" 
+                       HorizontalOptions="FillAndExpand" 
+                       Placeholder="Enter message and press Enter to send" 
+                       Completed="Entry_Completed" />
             </StackLayout>
 
+            <StackLayout Grid.Row="2">
+                <StackLayout Orientation="Horizontal">
+                    <Button x:Name="StartWebRTCBtn" Text="Start" Clicked="StartWebRTCBtn_Clicked" />
+                    <Button x:Name="SendOfferWebRTCBtn" Text="SendOffer in group" Clicked="SendOfferWebRTCBtn_Clicked" />
+                    <Button x:Name="StopWebRTCBtn" Text="Stop" Clicked="StopWebRTCBtn_Clicked" />
+                </StackLayout>
+                
+                <local:WebRtcView x:Name="WebRtcControl" 
+                                  VerticalOptions="CenterAndExpand" 
+                                  HeightRequest="300" 
+                                  ErrorOccurred="WebRtcControl_ErrorOccurred" />
+            </StackLayout>
+            
         </Grid>
 
     </ContentPage.Content>

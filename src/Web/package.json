@@ -19,7 +19,7 @@
     "extract-text-webpack-plugin": "2.1.2",
     "file-loader": "0.11.2",
     "isomorphic-fetch": "2.2.1",
-    "jquery": "3.2.1",
+    "jquery": "^3.2.1",
     "json-loader": "0.5.4",
     "react": "15.6.1",
     "react-dom": "15.6.1",
@@ -32,13 +32,14 @@
     "webpack-hot-middleware": "2.18.2"
   },
   "peerDependencies": {
-    "popper.js": "^1.14.3"
+    "popper.js": "1.14.3"
   },
   "dependencies": {
     "@aspnet/signalr": "^1.0.0-rc1-update1",
     "@types/node": "^10.0.8",
     "@types/toastr": "^2.1.35",
     "@types/uuid": "^3.4.3",
+    "popper.js": "^1.14.3",
     "toastr": "^2.1.4",
     "uuid": "^3.2.1",
     "webrtc-adapter": "^6.1.5"

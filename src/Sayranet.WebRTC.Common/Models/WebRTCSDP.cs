@@ -10,7 +10,7 @@ namespace Sayranet.WebRTC.Common.Models
     {
         public SDPType? Type { get; set; }
 
-        public string Raw { get; set; }
+        public string Sdp { get; set; }
     }
 
     public enum SDPType
