@@ -17,12 +17,12 @@ interface WebRtcSdp {
 }
 
 export class WebRtc extends React.Component<RouteComponentProps<WebRtcParams>, WebRtcState> {
-
+    
     private connection: signalR.HubConnection;
 
     // Published Signaling service with TLS
-    //private url: string = `http://test1.mstachyra.hostingasp.pl/chat`;
-    private url: string = `http://localhost:50780/chat`;
+    private url: string = `https://test1.mstachyra.hostingasp.pl/chat`;
+    //private url: string = `http://localhost:50780/chat`;
     private refChatInput: HTMLInputElement;
     private refChatAreaDiv: HTMLDivElement;
 
@@ -68,6 +68,7 @@ export class WebRtc extends React.Component<RouteComponentProps<WebRtcParams>, W
         this.handleSdp.bind(this);
         this.handleStop.bind(this);
         this.handleStart.bind(this);
+        this.handleIceCandidate.bind(this);
     }
 
     componentWillMount() {
@@ -96,12 +97,8 @@ export class WebRtc extends React.Component<RouteComponentProps<WebRtcParams>, W
                     this.setMsg('Recive: ' + msg);
                 });
 
-                this.connection.on('Answer', (sdp: WebRtcSdp) => {
-                    this.setMsg('Recive Answer: ' + sdp.sdp);
-                    // TODO handle answer
-                });
-
                 this.connection.on('Sdp', this.handleSdp);
+                this.connection.on('IceCandidate', this.handleIceCandidate);
             });
     }
 
@@ -161,8 +158,12 @@ export class WebRtc extends React.Component<RouteComponentProps<WebRtcParams>, W
                 console.log('Created local peer connection');
 
                 this.peerConnection.onicecandidate = (e) => {
-                    console.log('On ice candidate', e);
+                    console.log('onicecandidate ', JSON.stringify(e.candidate));
+                    //console.log('On ice candidate', e);
                     //this.peerConnection.addIceCandidate(e.candidate);
+                    this.connection.invoke('GroupIceCandidate',
+                        { GroupName: this.props.match.params.groupName, IceCandidate: e.candidate }
+                    );
                 };
 
                 this.peerConnection.oniceconnectionstatechange = function (e) {
@@ -238,6 +239,14 @@ export class WebRtc extends React.Component<RouteComponentProps<WebRtcParams>, W
 
             });
 
+        }
+    }
+
+    handleIceCandidate = (iceCandidate: RTCIceCandidate) => {
+        if (this.peerConnection) {
+            this.peerConnection.addIceCandidate(iceCandidate);
+        } else {
+            console.warn('handleIceCandidate ', JSON.stringify(iceCandidate));
         }
     }
 

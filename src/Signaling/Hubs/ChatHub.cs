@@ -35,8 +35,24 @@ namespace Sayranet.WebRTC.Signaling.Hubs
 
         public void GroupSdp(GroupWebRTCSdp webRTCSdp)
         {
+            if (webRTCSdp.Sdp == null)
+            {
+                return;
+            }
+
             // Send only to others
             Clients.OthersInGroup(webRTCSdp.GroupName).SendAsync("Sdp", webRTCSdp.Sdp);
+        }
+
+        public void GroupIceCandidate(GroupWebRTCIceCandidate webRTCIceCandidate)
+        {
+            if (webRTCIceCandidate.IceCandidate == null)
+            {
+                return;
+            }
+
+            // Send only to others
+            Clients.OthersInGroup(webRTCIceCandidate.GroupName).SendAsync("IceCandidate", webRTCIceCandidate.IceCandidate);
         }
     }
 }
